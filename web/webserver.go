@@ -13,7 +13,12 @@ type Server struct {
 }
 
 func NewServer(webServerPort string) *Server {
-	return &Server{WebServerPort: webServerPort}
+	return &Server{
+		Router:        chi.NewRouter(),
+		Handlers:      make(map[string]Handler),
+		Controllers:   []Controller{},
+		WebServerPort: webServerPort,
+	}
 }
 
 func (s *Server) AddController(controller Controller) {
